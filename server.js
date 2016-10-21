@@ -2,9 +2,11 @@ var port = process.env.PORT || 3000,
     io = require('socket.io')(port),
     Rooms = require('./classes/Rooms.js'),
     config = null,
-    rooms = null;
+    rooms = null,
+    globalSocket = null,
+    roomSocket = null;
 
-var globalSocket = io.on('connection', function(socket){
+globalSocket = io.on('connection', function(socket){
     console.log('Connected: ' + socket.id);
 
     socket.on('set-config', function(data){
@@ -20,7 +22,7 @@ var globalSocket = io.on('connection', function(socket){
     });
 });
 
-var roomSocket = io.of('/rooms').on('connection', function(socket){
+roomSocket = io.of('/rooms').on('connection', function(socket){
     socket.emit('get-room-list');
 
     socket.on('disconnect', function(){
@@ -101,7 +103,7 @@ var roomSocket = io.of('/rooms').on('connection', function(socket){
 
         if(room == null) return;
 
-        if(room.StartGame() == true){
+        if(room.StartGame(roomSocket) == true){
             socket.broadcast.to(data.roomID).emit('start-game');
         }
 

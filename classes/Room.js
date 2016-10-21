@@ -1,4 +1,5 @@
 var Player = require('./Player.js');
+var GameServer = require('../game/GameServer.js');
 
 class Room {
     constructor(data){
@@ -7,6 +8,7 @@ class Room {
         this.inGame = false;
         this.players = [];
         this.config = data.config;
+        this.gameServer = null;
 
     }
 
@@ -62,9 +64,15 @@ class Room {
         return null;
     }
 
-    StartGame(){
+    StartGame(roomSocket){
         if(this.inGame == true) return false;
         this.inGame = true;
+
+        this.gameServer = new GameServer({
+            roomSocket: roomSocket,
+            room: this
+        });
+
         return true;
     }
 
