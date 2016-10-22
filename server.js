@@ -22,7 +22,8 @@ globalSocket = io.on('connection', function(socket){
     });
 });
 
-roomSocket = io.of('/rooms').on('connection', function(socket){
+roomSocket = io.of('/rooms');
+roomSocket.on('connection', function(socket){
     socket.emit('get-room-list');
 
     socket.on('disconnect', function(){

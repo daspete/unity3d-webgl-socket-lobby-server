@@ -86,6 +86,9 @@ class Rooms {
     CleanRooms(){
         for(var i = 0; i < this.rooms.length; i++){
             if(this.rooms[i].players.length == 0){
+                if(this.rooms[i].gameServer != null){
+                    this.rooms[i].gameServer.StopGame();    
+                }
                 this.rooms.splice(i, 1);
                 i--;
             }
