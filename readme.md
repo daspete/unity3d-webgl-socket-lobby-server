@@ -20,7 +20,7 @@ in the shell.
 ## Editing the server
 
 ### The server class
-The server class is located at `/game/MyGameServer.js`.
+There is already a little game server example located at `/game/MyGameServer.js`.
 
 The server is started, when every player in the current lobby room is ready.
 
