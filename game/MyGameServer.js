@@ -46,8 +46,6 @@ class MyGameServer extends GameServer {
 
     OnPlayerGotPosition(data){
         data = JSON.parse(data);
-
-        console.log(data);
         
         if(typeof this.playerTimes[data.playerID] === 'undefined') return;
         if(this.playerTimes[data.playerID] !== null) return;
