@@ -6,10 +6,26 @@ class MyGameServer extends GameServer {
         super(data);
 
         this.targetActive = false;
+        this.playerTimes = {};
     }
 
     StartGame(){
-        this.socket.on('player-got-position', this.OnPlayerGotPosition.bind(this));
+        this.AddEvent({
+            event: 'player-got-position',
+            callback: this.OnPlayerGotPosition.bind(this)
+        });
+
+        this.StartGameRound();
+    }
+
+    StartGameRound(){
+        if(this.isRunning == false) return;
+
+        var playerIDs = this.room.GetPlayerIDs();
+
+        for(var i = 0; i < playerIDs.length; i++){
+            this.playerTimes[playerIDs[i]] = null;
+        }
 
         setTimeout(this.SetTarget.bind(this), 5000);
     }
@@ -18,22 +34,41 @@ class MyGameServer extends GameServer {
         this.targetActive = true;
 
         this.SendToAllPlayers({
-            fn: 'set-goal-position',
+            event: 'set-goal-position',
             data: {
-                x: Math.random() * 100 + 50,
-                y: Math.random() * 100 + 50
+                x: Math.random() * 20,
+                y: Math.random() * 20
             }
         });
+
+        setTimeout(this.StartGameRound.bind(this), 5000);
     }
 
     OnPlayerGotPosition(data){
-        if(this.targetActive == false) return;
-
-        this.targetActive = false;
-
         data = JSON.parse(data);
 
-        console.log('Player got position');
+        console.log(data);
+        
+        if(typeof this.playerTimes[data.playerID] === 'undefined') return;
+        if(this.playerTimes[data.playerID] !== null) return;
+
+        this.playerTimes[data.playerID] = data.clickTime;
+
+        if(this.targetActive == true) {
+            this.targetActive = false;
+
+            this.SendToOnePlayer({
+                playerID: data.playerID,
+                event: 'player-won-round'
+            });
+        } else {
+            this.SendToOnePlayer({
+                playerID: data.playerID,
+                event: 'player-lost-round'
+            });    
+        }
+
+        
     }
 
 

@@ -13,7 +13,7 @@ class Rooms {
             config: this.config
         });
 
-        room.AddPlayer(data.playerID);
+        room.AddPlayer(data.playerID, data.playerSocket);
         
         this.rooms.push(room);
 

@@ -23,6 +23,9 @@ globalSocket = io.on('connection', function(socket){
 });
 
 roomSocket = io.of('/rooms');
+roomSocket.on('player-got-position', function(){
+    console.log('player got test2');
+});
 roomSocket.on('connection', function(socket){
     socket.emit('get-room-list');
 
@@ -43,7 +46,8 @@ roomSocket.on('connection', function(socket){
         var room = rooms.AddRoom({
             roomID: roomID,
             roomName: data.roomName,
-            playerID: playerID
+            playerID: playerID,
+            playerSocket: socket
         });
 
         socket.broadcast.emit('get-room-list');
@@ -58,7 +62,7 @@ roomSocket.on('connection', function(socket){
 
         socket.join(data.roomID);
 
-        room.AddPlayer(socket.id.substr(7));
+        room.AddPlayer(socket.id.substr(7), socket);
 
         socket.broadcast.emit('get-room-list');
         socket.broadcast.to(data.roomID).emit('get-player-list', data.roomID);
@@ -104,8 +108,8 @@ roomSocket.on('connection', function(socket){
 
         if(room == null) return;
 
-        if(room.StartGame(roomSocket) == true){
-            socket.broadcast.to(data.roomID).emit('start-game');
+        if(room.StartGame() == true){
+            io.sockets.in(data.roomID).emit('start-game');
         }
 
         callback();
@@ -124,4 +128,5 @@ roomSocket.on('connection', function(socket){
 
         callback({ players: room.PlayerListData() });
     });
+
 });

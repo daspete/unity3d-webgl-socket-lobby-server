@@ -4,6 +4,7 @@ class Player{
         this.playerName = data.playerName;
         this.playerColor = data.playerColor;
         this.playerReady = false;
+        this.playerSocket = data.playerSocket;
     }
 
     ListData(){

@@ -29,7 +29,7 @@ class Room {
         return players;
     }
 
-    AddPlayer(playerID){
+    AddPlayer(playerID, playerSocket){
         for(var i = 0; i < this.players.length; i++){
             if(this.players[i].playerID == playerID){
                 return;
@@ -40,7 +40,8 @@ class Room {
             playerID: playerID,
             playerName: 'Player ' + (this.players.length + 1),
             playerColor: this.config.playerColors[this.config.defaultPlayerColor],
-            playerReady: false
+            playerReady: false,
+            playerSocket: playerSocket
         }));
     }
 
@@ -63,13 +64,12 @@ class Room {
         return null;
     }
 
-    StartGame(roomSocket){
+    StartGame(){
         if(this.inGame == true) return false;
 
         this.inGame = true;
 
         this.gameServer = new MyGameServer({
-            roomSocket: roomSocket,
             room: this
         });
 
@@ -90,6 +90,26 @@ class Room {
         }
 
         return this.players.length >= this.config.minPlayerToStartGame;
+    }
+
+    GetPlayerIDs(){
+        var playerIDs = [];
+
+        for(var i = 0; i < this.players.length; i++){
+            playerIDs.push(this.players[i].playerID);
+        }
+
+        return playerIDs;
+    }
+
+    GetPlayerSocket(playerID){
+        for(var i = 0; i < this.players.length; i++){
+            if(this.players[i].playerID == playerID){
+                return this.players[i].playerSocket;
+            }
+        }
+
+        return null;
     }
 }
 
