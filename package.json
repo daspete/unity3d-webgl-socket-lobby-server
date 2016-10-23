@@ -1,7 +1,7 @@
 {
-  "name": "webglsocketlobbyserver",
+  "name": "unity3d-webgl-socket-lobby-server",
   "version": "1.0.0",
-  "description": "Server for Unity3D WebGL Socket Lobby System",
+  "description": "The SocketIO server for the Unity3D WebGL Socket Lobby System",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
