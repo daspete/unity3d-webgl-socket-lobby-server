@@ -31,7 +31,7 @@ To add socket event listeners, you can use the `this.AddEvent` function.
 
 For example, if you send a message from the client, you can receive it this way
 
-```
+```javascript
 this.AddEvent({
     event: 'send-message',
     callback: function(data){
@@ -44,7 +44,7 @@ this.AddEvent({
 To send a message to all servers, you can use the `this.SendToAllPlayers` function.
 
 For example: 
-```
+```javascript
 this.SendToAllPlayers({
     event: 'set-player-position',
     data: {
