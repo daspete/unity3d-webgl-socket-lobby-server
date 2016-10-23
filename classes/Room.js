@@ -111,6 +111,16 @@ class Room {
 
         return null;
     }
+
+    GetPlayer(playerID){
+        for(var i = 0; i < this.players.length; i++){
+            if(this.players[i].playerID == playerID){
+                return this.players[i];
+            }
+        }
+
+        return null;
+    }
 }
 
 module.exports = Room;
