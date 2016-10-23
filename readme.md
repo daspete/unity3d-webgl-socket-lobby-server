@@ -73,7 +73,7 @@ In the game server class exists an instance of the room class, which holds the r
 
 To get the current players, you can use `this.room.players`
 
-If you want to get just the player ids, you can use 'this.room.GetPlayerIDs();' which gives you an array of all current player ids
+If you want to get just the player ids, you can use `this.room.GetPlayerIDs();` which gives you an array of all current player ids
 
 If you want to get the player object of a specific player id, you can use `this.room.GetPlayer(playerID);`, which gives you the player object, or null, if it wasn't found
 
