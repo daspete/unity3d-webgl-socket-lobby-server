@@ -53,3 +53,17 @@ this.SendToAllPlayers({
     }
 });
 ```
+
+### Sending messages to one player
+To send a message to a specific player, you can use the `this.SendToOnePlayer` function
+
+For example:
+```jasvascript
+this.SendToOnePlayer({
+    playerID: 'the player id you want to send',
+    event: 'send-message',
+    data: {
+        message: 'hi there'
+    }
+});
+```
