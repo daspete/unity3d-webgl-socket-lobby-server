@@ -6,6 +6,10 @@ To get the system run, you also need two more packages:
 * [the client package](https://github.com/daspete/unity3d-webgl-socket-lobby-client)
 * [the Unity3D AssetStore package]()
 
+A detailed tutorial, on how to use this system is available at [http://tutorials.daspete.at/unity3d/webglsocketlobby](http://tutorials.daspete.at/unity3d/webglsocketlobby)
+
+If you like this package, you would do me a favour, if you [buy me a coffee](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ZWWDTMU7SM9NY) ;)
+
 ## Requirements
 * NodeJS 6.2
 
